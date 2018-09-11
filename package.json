@@ -1,5 +1,5 @@
 {
-  "name": "react-video",
+  "name": "redux-video",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yitodeveloper/react_video.git"
+    "url": "git+https://github.com/yitodeveloper/redux_video.git"
   },
   "keywords": [
     "react"
   ],
   "author": "Rodrigo Ramirez <yitodeveloper@gmail.com> (https://github.com/yitodeveloper)",
   "license": "MIT",
-  "homepage": "https://github.com/yitodeveloper/react_video#readme",
+  "homepage": "https://github.com/yitodeveloper/redux_video#readme",
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-preset-stage-2": "6.24.1",
@@ -38,6 +38,7 @@
     "prop-types": "15.6.0",
     "react": "16.1.1",
     "react-dom": "16.1.1",
-    "redux": "^4.0.0"
+    "react-redux": "5.0.6",
+    "redux": "3.7.2"
   }
 }

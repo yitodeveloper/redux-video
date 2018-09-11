@@ -7,20 +7,22 @@ import Modal from '../../widgets/components/modal.jsx'
 import HandleError from '../../error/containers/handle-error.jsx'
 import VideoPlayer from '../../player/container/video-player.jsx'
 import { connect } from 'react-redux'
+import {List as list} from 'immutable'
 
 class Home extends Component{
-    state = {
-        modalVisible: false
-    }
+    
     handleCloseModal = (event) => {
-        this.setState({
-            modalVisible: false,
+        this.props.dispatch({
+            type: 'CLOSE_MODAL'
         })
     }
-    handleOpenModal = (media) => {
-        this.setState({
-            modalVisible: true,
-            media
+    handleOpenModal = (id) => {
+        this.props.dispatch({
+            type: 'OPEN_MODAL',
+            payload: {
+                mediaId: id
+            }
+            
         })
     }
     render(){
@@ -34,13 +36,14 @@ class Home extends Component{
                         search={this.props.search}
                     />
                     {
-                        this.state.modalVisible &&
+                        this.props.modal.get('visibility') &&
                         <ModalContainer>
                             <Modal handleClick={this.handleCloseModal}>
                             <VideoPlayer
                                 autoplay={true}
-                                src={this.state.media.src}
-                                title={this.state.media.title}
+                                id={this.props.modal.get('mediaId')}
+                                // src={this.state.media.src}
+                                // title={this.state.media.title}
                             />
                             </Modal>
                         </ModalContainer> 
@@ -53,12 +56,25 @@ class Home extends Component{
 }
 
 function mapStateToProps(state, props){
-    const categories = state.data.categories.map((categoryId) => {
-        return state.data.entities.categories[categoryId]
+    
+    const categories = state.get('data').get('categories').map((categoryId) => {
+        return state.get('data').get('entities').get('categories').get(categoryId)
     })
+
+    const search =  state.get('data').get('search')
+    let searchResult = list()
+
+    if(search){
+        const mediaList = state.get('data').get('entities').get('media')
+        searchResult = mediaList.filter((item)=>{
+            return item.get('author').toLowerCase().includes(search.toLowerCase())
+        }).toList()
+
+    }
     return {
         categories,
-        search: state.data.search
+        search: searchResult,
+        modal: state.get('modal')
     }
 }
 

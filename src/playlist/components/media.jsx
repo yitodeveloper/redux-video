@@ -19,7 +19,7 @@ class Media extends PureComponent {
         // this.setState({
         //     author: 'yitodeveloper'
         // })
-        this.props.openModal(this.props)
+        this.props.openModal(this.props.id)
     }
     render() {
         // const styles = {
